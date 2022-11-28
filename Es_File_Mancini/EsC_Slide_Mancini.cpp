@@ -1,10 +1,15 @@
-/*****************
-* Matteo Mancini *
-*      4^H       *
-*    28/11/22    *
-*   Esercizio C  *
-*   Versione 1.2 *
-******************/
+/** ****************************************************************************************
+* \mainpage Esercizio C file di testo                          
+*
+* @brief partendo da un file contenente parole spazi e "a capo" ricevere in output 
+* quanti caratteri, spazi e "a capo" sono presenti nel file di partenza
+*File usati: "parole_casuali.txt"
+* 
+* @author Matteo Mancini
+* @date 28/11/22
+* @version 1.0 <14/11/22> Creazione del programma
+* @version 1.1 <17/11/22> Fine scrittura programma
+*/
 
 #include<stdio.h>
 #include<stdlib.h>

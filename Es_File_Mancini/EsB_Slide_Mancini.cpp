@@ -1,10 +1,14 @@
-/*****************
-* Matteo Mancini *
-*      4^H       *
-*    28/11/22    *
-*   Esercizio B  *
-*   Versione 1.1 *
-******************/
+/** ****************************************************************************************
+* \mainpage Esercizio B file di testo
+*
+* @brief Copiare le parole all' interno di un file in un secondo file
+* File usati: "inTXT.txt", "outTXT.txt"
+* 
+* @author Matteo Mancini
+* @date 28/11/22
+* @version 1.0 <14/11/22> Creazione del programma
+* @version 1.1 <17/11/22> Fine scrittura programma
+*/
 
 #include <stdio.h>
 #include <stdlib.h>

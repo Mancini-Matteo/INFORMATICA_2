@@ -11,20 +11,20 @@
 
 int main()
 {
-	char nomeFile[]={"parole_casuali.txt"};
+	char nomeFile[]={"parole_casuali.txt"}; //File di partenza contenente parole casuali, spazi e "a capo"
 	char s;
-	int cont1=0,cont2=0,cont3=1;
+	int cont1=0,cont2=0,cont3=1; //Dichiarazione contatori
 	
-	FILE *puntaFile;
+	FILE *puntaFile; //Puntatore file
 	
-	puntaFile=fopen(nomeFile,"r");
+	puntaFile=fopen(nomeFile,"r"); //Apertura file"parole_casuali.txt" in modalità read
 	
 	if(puntaFile!=0)
 	{
-		while(!feof(puntaFile))
+		while(!feof(puntaFile)) //Ciclo che verifica la fine del file
 		{
 			s=fgetc(puntaFile); 	
-			if(s!=' ' && s!='\0' && s!='\n') //controlla se diverso da cartteri speciali
+			if(s!=' ' && s!='\0' && s!='\n') //Controlla è diverso da spazio e a capo
 			{
 				cont1++; //contatore caratteri
 			}
@@ -42,7 +42,7 @@ int main()
 		printf("Caratteri:%d, Parole:%d, Righe:%d",cont1,cont2,cont3);
 	}
 	else 
-		printf("\nIL FILE NON PUO' ESSERE APERTO!");
+		printf("\nIL FILE NON PUO' ESSERE APERTO!"); //Errore apertura file
 	
-	fclose(puntaFile);
+	fclose(puntaFile); //Chiusura file
 }

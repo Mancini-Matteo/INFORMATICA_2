@@ -1,4 +1,4 @@
-// MATTEO MANCINI 4^H Es."c" slide 39
+// MATTEO MANCINI 4^H Es."c" slide 
 
 // dalla traccia il file deve iniziare e termiare con una cifra
 

@@ -29,7 +29,7 @@ void crypt(char nomeFile1[])
 		{
 			s=fgetc(puntaFile1); 
 		
-			if(s>='a'&& s<='w'|| s>='A'&& s<='W')//controllo  carattere MIN o MAIUSC
+			if(s>='a'&& s<='w'|| s>='A'&& s<='W')//controllo  carattere sia nell'alfabeto
 			{
 				s+=3;
 				fputc(s,puntaFile2);	//mette il carattere nel nuovo file		
@@ -81,7 +81,7 @@ void decrypt(char nomeFile1[])
 		{
 			s=fgetc(puntaFile1);  //prende ilo carattere
 		
-			if((s>='d'&& s<='z')||(s>='D'&& s<='Z')) //controllo  carattere MIN o MAIUSC
+			if((s>='d'&& s<='z')||(s>='D'&& s<='Z')) //controllo  carattere sia nell'alfabeto
 			{
 				s-=3;
 				fputc(s,puntaFile2);	//mette il carattere nel nuovo file		

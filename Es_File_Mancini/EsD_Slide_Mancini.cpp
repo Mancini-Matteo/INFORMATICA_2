@@ -1,12 +1,15 @@
-/*****************
-* Matteo Mancini *
-*      4^H       *
-*    28/11/22    *
-*   Esercizio D  *
-*   Versione 1.3 *
-******************/
-
-// dalla traccia il file deve iniziare e termiare con una cifra
+/** ****************************************************************************************
+* \mainpage Esercizio D file di testo
+*
+* @brief Partendo da un file di testo contenente numeri casuali a una cifra separare i pari dai dispari in due separati file
+* File usati: "numeri.txt", "pari.txt", "dispari.txt"
+* Dalla traccia il file deve iniziare e termiare con una cifra
+*
+* @author Matteo Mancini
+* @date 28/11/22
+* @version 1.0 <14/11/22> Creazione del programma
+* @version 1.1 <21/11/22> Fine scrittura programma
+*/
 
 #include<stdio.h>
 #include<stdlib.h>

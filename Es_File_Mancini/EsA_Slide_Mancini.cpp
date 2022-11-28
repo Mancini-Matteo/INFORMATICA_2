@@ -1,4 +1,10 @@
-// MATTEO MANCINI 4^H Es."a" slide 
+/*****************
+* Matteo Mancini *
+*      4^H       *
+*    28/11/22    *
+*   Esercizio A  *
+*   Versione 1.1 *
+******************/
 
 #include <stdio.h>
 #include <stdlib.h>

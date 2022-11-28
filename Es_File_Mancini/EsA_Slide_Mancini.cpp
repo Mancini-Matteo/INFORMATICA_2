@@ -1,10 +1,14 @@
-/*****************
-* Matteo Mancini *
-*      4^H       *
-*    28/11/22    *
-*   Esercizio A  *
-*   Versione 1.1 *
-******************/
+/** ****************************************************************************************
+* \mainpage Esercizio A file di testo                          
+*
+* @brief trasformare dei nomi scritti in minuscolo in maiuscolo
+* File usati: "nomi.txt", "NOMI2.txt"
+* 
+* @author Matteo Mancini
+* @date 28/11/22
+* @version 1.0 <14/11/22> Creazione del programma
+* @version 1.1 <17/11/22> Fine scrittura programma
+*/
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,4 +1,10 @@
-// MATTEO MANCINI 4^H Es."c" slide 
+/*****************
+* Matteo Mancini *
+*      4^H       *
+*    28/11/22    *
+*   Esercizio D  *
+*   Versione 1.3 *
+******************/
 
 // dalla traccia il file deve iniziare e termiare con una cifra
 

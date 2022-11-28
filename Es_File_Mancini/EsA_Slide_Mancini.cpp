@@ -1,4 +1,4 @@
-// MATTEO MANCINI 4^H Es."a" slide 39
+// MATTEO MANCINI 4^H Es."a" slide 
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,4 +1,10 @@
-// MATTEO MANCINI 4^H Es."e" slide 
+/*****************
+* Matteo Mancini *
+*      4^H       *
+*    28/11/22    *
+*   Esercizio E  *
+*   Versione 1.5 *
+******************/
 
 #include <stdio.h>
 

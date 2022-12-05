@@ -1,0 +1,134 @@
+/** ****************************************************************************************
+* \mainpage Funzioni file binari                         
+*
+* @brief Esercizi con gestione di array di file  binari 
+* 
+* @author Matteo Mancini
+* @date 05/12/22
+* @version 1.0 < 05/12/22> Creazione del programma>
+* @version 1.1 < /12/22> 
+*/
+
+#include <stdio.h>
+#define C 20
+
+struct data
+{
+	int giorno;
+	char mese;
+	int anno;
+}typedef data;
+
+struct studente
+{
+	int matricola;
+	char cognome[C];
+	data nascita;
+}typedef studente;
+
+void inserisciRecord(char [],int );
+void stampaFile(char []);
+int ricercaRecord(char [], char []);
+int stampaRecord(char [],int );
+
+int main()
+{
+	studente st[N];
+	int f1,f2,numRecord,posizione;
+	char nomeFile[]={"StructFile.txt"};
+    char cognome;
+	
+	printf("Su quanti struct vuoi lavorare?");
+	scanf("%d",numRecord);
+	inserisciRecord(nomeFile,numRecord);
+
+    stampaFile(nomeFile);
+
+    printf("\nInserisci il cognome: ");
+	scanf("%s",cognome);
+    f1=ricercaRecord(nomeFile,cognome);
+
+    printf("\nInserisci quale record stampare: ");
+	scanf("%d",posizione);
+	f2=stampaRecord(nomeFile,posizione);
+}
+
+void inserisciRecord(char nomeFile[],int numRecord)
+{
+	int i;
+	FILE *pf;
+	pf=fopen(nomeFile,"w");
+	
+	if(pf!=0)
+	{	
+		for(i=0;i<numRecord;i++)
+		{	
+			printf("Inserisci il numero di matricola: ");
+			scanf("%d",&studente[i].matricola);
+			printf("\nInserisci il cognome dello studente: ");
+			scanf("%d",studente[i].cognome);
+			printf("\nInserisci il giorno di nascita dello studente: ");
+			scanf("%d",&studente[i].data.giorno);
+			printf("\nInserisci il mese di nascita dello studente: ");
+			scanf("%d",studente[i].data.mese);
+			printf("\nInserisci l'anno di nascita dello studente: ");
+			scanf("%d",&studente[i].data.anno);
+			fwrite(&stdente, sizeof(studente),1,pf);
+		}
+		fclose(pf);
+	}
+	else
+		printf("\nIL FILE NON PUO' ESSERE APERTO!");
+}
+
+void stampaFile(char nomeFile[])
+{
+	int i;
+	FILE *pf;
+	pf=fopen(nomeFile,"r");
+	
+	if(pf!=0)
+	{
+	
+		while(!feof(pf))
+		{
+			printf("Numero di matricola: ");
+			printf("%d",studente[i].matricola);
+			printf("\nCognome dello studente: ");
+			printf("%d",studente[i].cognome);
+			printf("\nData di nascita dello studente: ");
+			printf("%d %s %d",&studente[i].data.giorno,studente[i].data.mese,&studente[i].data.anno);
+		}
+		fclose(pf);
+	}
+	else
+    {
+		printf("\nIL FILE NON PUO' ESSERE APERTO!");
+}
+
+int ricercaRecord(char nomeFile[], char cognome[])
+{
+
+}
+
+void stampaRecord(char nomeFile[],int posizione)
+{
+	int i;
+	FILE *pf;
+	pf=fopen(nomeFile,"r");
+	
+	if(pf!=0)
+	{
+		printf("Numero di matricola: ");
+		printf("%d",studente[posizione].matricola);
+		printf("\nCognome dello studente: ");
+		printf("%d",studente[posizione].cognome);
+		printf("\nData di nascita dello studente: ");
+		printf("%d %s %d",&studente[posizione].data.giorno,studente[posizione].data.mese,&studente[posizione].data.anno);
+
+		fclose(pf);
+	}
+	else
+    {
+		printf("\nIL FILE NON PUO' ESSERE APERTO!");
+}

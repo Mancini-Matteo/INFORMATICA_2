@@ -1,134 +1,300 @@
 /** ****************************************************************************************
-* \mainpage Funzioni file binari                         
+* \mainpage Esercizi sui file binari
 *
-* @brief Esercizi con gestione di array di file  binari 
+* @brief Esercitazione sui file binari con lo scopo di esercitarsi nella gestione
+* dei file binari tramite il programma Dev-C++ utilizzando nuove  funzioni per 
+*la gestione dei file studiate nella parte teorica.
 * 
 * @author Matteo Mancini
 * @date 05/12/22
-* @version 1.0 < 05/12/22> Creazione del programma>
-* @version 1.1 < /12/22> 
+* @version 1.0 <05/12/22> Creazione del programma
+* @version 1.1 <08/12/22> Implementazione commenti
+* @version 1.2 <15/12/22> Correzione funzioni
+* @version 1.3 <20/12/22> Completamento e chiusura programma
 */
 
-#include <stdio.h>
-#define C 20
+#include <stdio.h> // libreria utilizzata per printf e scanf
+#include <string.h> // libreria per gestiere le funzioni sulle stringhe
+#define C 20 // costante numero max lettere cognome
+#define V 5 // costante numero voti studente
+#define M 10 // costante numero max lettere mese
 
-struct data
+struct data // struct contenentre i campi di una data generica
 {
-	int giorno;
-	char mese;
-	int anno;
-}typedef data;
+	int giorno; // varibile che indica il giorno in numeri
+	char mese[M]; // varibile che indica il mese in lettere
+	int anno; // varibile che indica l'anno in numeri
+}typedef data; // rinomino struct
 
-struct studente
+struct studente // struct contenentre i campi con i dati dello studente
 {
-	int matricola;
-	char cognome[C];
-	data nascita;
-}typedef studente;
+	int matricola; // variabile che indica il numero di matricola dello studente
+	int voti[V]; // array di 5 voti dello studente
+	char cognome[C]; // array di valore 20 (numero max lettere cognome)
+	data nascita; // varivabile nascita di tipo data
+}typedef studente; // rinomino struct
 
-void inserisciRecord(char [],int );
-void stampaFile(char []);
-int ricercaRecord(char [], char []);
-int stampaRecord(char [],int );
+void menu(void); // dichiarazione funzione chye stampa il menù
+void inserisciRecord(char [],int ); // dichiarazione funzione di creazione e inserimento dati nei record
+void stampaFile(char []); // dichiarazione funzione che stampa tutti i record
+int ricercaRecord(char [], char []); // dichiarazione funzione di ricerca record tramite cognome
+int stampaRecord(char [],int ); // dichiarazione funzione che stampa tutti il record richiesto da tastiera
+int correggiRecord(char [], int ); // dichiarazione funzione di correzione di un singolo record
+int numeroRecord(char []); // dichiarazione funzione che stampa il numero di record presenti nel file 
 
 int main()
 {
-	studente st[N];
-	int f1,f2,numRecord,posizione;
-	char nomeFile[]={"StructFile.txt"};
-    char cognome;
+	int s,numRecord,posizione,posizione2,f1,f2,f3; // variabili int
+	char nomeFile[]={"FileBinari.dat"}; // nome file da creare
+	char cognome[C]; // variabili char
 	
-	printf("Su quanti struct vuoi lavorare?");
-	scanf("%d",numRecord);
-	inserisciRecord(nomeFile,numRecord);
-
-    stampaFile(nomeFile);
-
-    printf("\nInserisci il cognome: ");
-	scanf("%s",cognome);
-    f1=ricercaRecord(nomeFile,cognome);
-
-    printf("\nInserisci quale record stampare: ");
-	scanf("%d",posizione);
-	f2=stampaRecord(nomeFile,posizione);
-}
-
-void inserisciRecord(char nomeFile[],int numRecord)
-{
-	int i;
-	FILE *pf;
-	pf=fopen(nomeFile,"w");
-	
-	if(pf!=0)
-	{	
-		for(i=0;i<numRecord;i++)
-		{	
-			printf("Inserisci il numero di matricola: ");
-			scanf("%d",&studente[i].matricola);
-			printf("\nInserisci il cognome dello studente: ");
-			scanf("%d",studente[i].cognome);
-			printf("\nInserisci il giorno di nascita dello studente: ");
-			scanf("%d",&studente[i].data.giorno);
-			printf("\nInserisci il mese di nascita dello studente: ");
-			scanf("%d",studente[i].data.mese);
-			printf("\nInserisci l'anno di nascita dello studente: ");
-			scanf("%d",&studente[i].data.anno);
-			fwrite(&stdente, sizeof(studente),1,pf);
-		}
-		fclose(pf);
-	}
-	else
-		printf("\nIL FILE NON PUO' ESSERE APERTO!");
-}
-
-void stampaFile(char nomeFile[])
-{
-	int i;
-	FILE *pf;
-	pf=fopen(nomeFile,"r");
-	
-	if(pf!=0)
-	{
-	
-		while(!feof(pf))
+ do{ // ciclo
+		menu(); // funzione printf menù
+		
+		scanf("%d",&s); // inserimento scelta
+		switch(s) // switch case per menù
 		{
-			printf("Numero di matricola: ");
-			printf("%d",studente[i].matricola);
-			printf("\nCognome dello studente: ");
-			printf("%d",studente[i].cognome);
-			printf("\nData di nascita dello studente: ");
-			printf("%d %s %d",&studente[i].data.giorno,studente[i].data.mese,&studente[i].data.anno);
-		}
-		fclose(pf);
+			case 1: //scelta 1
+				printf("Quanti studenti vuoi inserire? ");
+				scanf("%d",&numRecord); // inserimento numero di record da creare 
+				inserisciRecord(nomeFile,numRecord); // chiamata funzione "inserisciRecord"
+			break; // interruzione case
+		
+			case 2: //scelta 2
+				stampaFile(nomeFile); // chiamata funzione "stampaFile"
+			break; // interruzione case
+	
+			case 3: //scelta 3
+				printf("Inserisci il cognome dello studente da cercare: ");
+				scanf("%s",cognome); // inserimento cognome dello studente con cui fare la ricerca 
+				ricercaRecord(nomeFile,cognome); // chiamata funzione "ricercaRecord"
+			break; // interruzione case
+		
+			case 4: //scelta 4
+				printf("Quale record vuoi stampare? ");
+				scanf("%d",&posizione); // inserimento posizione record da stampare
+				f1=stampaRecord(nomeFile,posizione); // chiamata funzione "stampaRecord"
+			break; // interruzione case
+			
+			case 5: //scelta 5
+				printf("Quale posizione del record vuoi correggere?");
+				scanf("%d",&posizione2); // inserimento posizoione record da correggere
+				f2=correggiRecord(nomeFile,posizione2); // chiamata funzione "correggiRecord"
+			break; // interruzione case
+			
+			case 6: //scelta 6
+				f3=numeroRecord(nomeFile); // chiamata funzione "numeroRecord"
+				printf("Numero di record: %d",f3); // stampa risultato funzione
+			break; // interruzione case
+		}			
+	}while(s!=0); // while che verifica valore della variabile "s", se s=0 il programma termina
+	
+	return 0; // conferma al sistema che sia tutto corretto
+}
+
+void menu(void) // funzione di stampa menù
+{
+	printf("\n0: CHIUSURA PROGRAMMA");
+	printf("\n1: InserisciRecord");
+	printf("\n2: StampaFile");
+	printf("\n3: RicercaRecord");
+	printf("\n4: StampaRecord");
+	printf("\n5: CorreggiRecord");
+	printf("\n6: NumeroRecord\n");
+}
+
+void inserisciRecord(char nomeFile[],int numRecord) // funzione di creazione e inserimento dati nei record
+{
+	int i=0,cont,f; // dichiarazione interi 
+	FILE *pf; //dichiarazione puntatore del file
+	studente buffer; //dichiarazione di un record buffer di tipo studente
+	pf=fopen(nomeFile,"wb+"); // apertura file in write binary
+	
+	for(cont=0;cont<numRecord;cont++) //insrisce i dati dei studenti per quanto lo chiede l'utente
+	{
+		printf("\nInserisci il numero di matricola: ");
+		scanf("%d",&buffer.matricola); // inserimento campo matricola nel record buffer di tipo studente
+		printf("\nInserisci il cognome dello studente: ");
+		scanf("%s",buffer.cognome);	// inserimento campo cognome nel record buffer di tipo studente
+		printf("\nInserisci il giorno di nascita dello studente: ");
+		scanf("%d",&buffer.nascita.giorno); // inserimento campo giorno nel record buffer di tipo studente
+		printf("\nInserisci il mese di nascita dello studente: ");
+		scanf("%s",buffer.nascita.mese); // inserimento campo mese nel record buffer di tipo studente
+		printf("\nInserisci l'anno di nascita dello studente: ");
+		scanf("%d",&buffer.nascita.anno); // inserimento campo anno nel record buffer di tipo studente
+		printf("\nInserisci 5 voti dello studente: ");
+		for(i=0;i<V;i++) // ciclo che scorre array di V(5) voti
+		{
+			scanf("%d",&buffer.voti[i]); // inserimento campo voti nel record buffer di tipo studente
+		}	
+			
+		f=fwrite(&buffer,sizeof(buffer),1,pf); //il record vine memorizzato nel file
 	}
-	else
-    {
-		printf("\nIL FILE NON PUO' ESSERE APERTO!");
+	fclose(pf); //salva le modifiche e chiude il file
 }
 
-int ricercaRecord(char nomeFile[], char cognome[])
+void stampaFile(char nomeFile[]) // funzione che stampa tutti i record
 {
-
+	int i,n; // contatore
+	float media,a; //variabile per calcolo media
+	
+	FILE *pf; //dichiarazione puntatore del file
+	studente buffer; //dichiarazione di un record buffer di tipo studente
+	pf=fopen(nomeFile,"rb"); // apertura file in read binary
+	
+	if(pf!=0) // controllo che il file esista e sia stato aperto correttamente
+	{	
+		while(!feof(pf)) // ciclo che scorre fino alla fine del file
+		{	
+			a=0; // porto a al volore 0 per calcolare una nuova media
+			n=fread(&buffer, sizeof(buffer),1,pf); //legge all'interno del file
+			
+			if(n>0)
+			{
+				printf("Numero di matricola: %d",buffer.matricola);
+				printf("\nCognome dello studente: %s",buffer.cognome);
+				for(i=0;i<V;i++) // ciclo che scorre array di V(5) voti
+				{
+					a+=buffer.voti[i]; //somma tutti i voti 
+				}
+				media=a/V; // calcolo media
+				printf("\nMedia dello studente: %.1f",media);
+				printf("\nData di nascita dello studente: %d %s %d\n",buffer.nascita.giorno,buffer.nascita.mese,buffer.nascita.anno);	
+				printf("\n");
+			}
+		}
+	}
+	else //se è falso  visualizza errore	
+		printf("\nIL FILE NON PUO' ESSERE APERTO!"); // file con errore in apertura o inesistente
 }
 
-void stampaRecord(char nomeFile[],int posizione)
+int ricercaRecord(char nomeFile[], char cognome[])  // funzione di ricerca record tramite cognome
 {
-	int i;
-	FILE *pf;
-	pf=fopen(nomeFile,"r");
+	int i,eta,n,p; // dichiaraizone variabili int
+	float media,a; // dichiaraizone variabili float
+	FILE* pf; //dichiarazione puntatore del file
+	studente buffer; //dichiarazione di un record buffer di tipo studente
+	pf=fopen(nomeFile,"rb"); //apre x è file1
+	
+	while(!feof(pf)) //il ciclo continua fino quando finisce il file
+	{
+		fread(&buffer,sizeof(buffer),1,pf); //tira fuori il record dal file e messo nel record del programma
+		a=0; // porto a al volore 0 per calcolare una nuova media
+		
+		if(strcmp(buffer.cognome,cognome)==0) //controlla se è lo stesso cognome
+		{
+			printf("\nNumero di matricola: %d",buffer.matricola);
+			printf("\nCognome dello studente: %s",buffer.cognome);
+			for(i=0;i<V;i++)
+			{
+				a+=buffer.voti[i]; //somma tutti i voti
+			}
+			media=a/V; //calcola media
+			printf("\nMedia dei voti:%.1f\n",media);
+			n=1; //se il congome coincide n=1
+		}
+		
+		if(n==0)
+			p++; //aumenta il contatore fino quando n è diverso da 0	
+	}
+	return p;
+}
+
+int stampaRecord(char nomeFile[],int posizione) //funzione che stampa tutti il record richiesto da tastiera
+{
+	int i,media,a,n,f; // dichiaraizone variabili int
+	FILE *pf; //dichiarazione puntatore del file
+	studente buffer; //dichiarazione di un record buffer di tipo studente
+	pf=fopen(nomeFile,"rb");
 	
 	if(pf!=0)
 	{
-		printf("Numero di matricola: ");
-		printf("%d",studente[posizione].matricola);
-		printf("\nCognome dello studente: ");
-		printf("%d",studente[posizione].cognome);
-		printf("\nData di nascita dello studente: ");
-		printf("%d %s %d",&studente[posizione].data.giorno,studente[posizione].data.mese,&studente[posizione].data.anno);
-
+		f=fseek(pf,posizione*sizeof(buffer),SEEK_SET);// posizionamento sullo struct richiesto
+		n=fread(&buffer,sizeof(buffer),1,pf); // lettura del file
+		a=0; // porto a al volore 0 per calcolare una nuova media
+			
+		printf("\nNumero di matricola: %d",buffer.matricola);
+		printf("\nCognome dello studente: %s",buffer.cognome );
+		for(i=0;i<V;i++)
+		{
+			a+=buffer.voti[i]; //somma dei voti
+		}
+		media=a/V; //calcolo media
+		printf("\nMedia dello studente: %d",media);
+		printf("\nData di nascita dello studente:%d %s %d\n", buffer.nascita.giorno, buffer.nascita.mese, buffer.nascita.anno);
+		f=fseek(pf,posizione*sizeof(buffer),SEEK_SET); // posiziona 
 		fclose(pf);
+		
+		return 0; // restuituisce 0
 	}
-	else
-    {
-		printf("\nIL FILE NON PUO' ESSERE APERTO!");
+	else //se è falso  visualizza errore e return -1
+	{
+		return -1; // restuituisce -1
+		printf("\nIL FILE NON PUO' ESSERE APERTO!"); // file con errore in apertura o inesistente
+	}
 }
+
+
+int correggiRecord(char nomeFile[], int posizione) // funzione di correzione di un singolo record
+{
+    int f1,f,i; // dichiarazione variabili int                 
+	FILE *pf; //dichiarazione puntatore del file
+	studente buffer; //dichiarazione di un record buffer di tipo studente
+	pf=fopen(nomeFile,"wb+"); // apertura file in write binary
+	
+    if(pf!=0) // controllo se il file è stato aperto correttamente       
+    {   
+        f=fseek(pf,posizione*sizeof(studente),SEEK_SET); // posiziona all'inizio del record
+
+        if(f==0)
+        { 
+            f1=stampaRecord(nomeFile,posizione);
+            
+            printf("\nINSERISCI LE CORREZZIONI: ");
+            printf("\nInserisci il numero di matricola: ");
+			scanf("%d",&buffer.matricola);
+			printf("\nInserisci il cognome dello studente: ");
+			scanf("%s",buffer.cognome); 
+			printf("\nInserisci 5 voti dello studente");
+			for(i=0;i<V;i++) // ciclo inserimento voti
+			{
+				scanf("%d",&buffer.voti[i]); ; //inserimento voti
+			}
+			printf("\nInserisci il giorno di nascita dello studente: ");
+			scanf("%d",&buffer.nascita.giorno); 
+			printf("\nInserisci il mese di nascita dello studente: ");
+			scanf("%s",buffer.nascita.mese);
+			printf("\nInserisci l'anno di nascita dello studente: ");
+			scanf("%d",&buffer.nascita.anno);
+			
+            f=fseek(pf,posizione*sizeof(struct studente),SEEK_SET); // posizionamento all' inizio del file
+            fwrite(&buffer,sizeof(struct studente),1,pf); // scrive le modifiche nel file
+        }
+        fclose(pf); // chuiusura file
+    }
+    else //se è falso  visualizza errore	
+		printf("\nIL FILE NON PUO' ESSERE APERTO!"); // file con errore in apertura o inesistente
+}
+
+int numeroRecord(char nomeFile[]) // funzione che stampa il numero di record presenti nel file 
+{
+	studente buffer; //dichiarazione di un record buffer di tipo studente										
+	int s,f,record;	// dichiarazione variabili di tipo int		
+	FILE* pf; //dichiarazione puntatore del file									
+	pf=fopen(nomeFile,"rb"); // apertura file in modalità read binary 
+	
+	s=sizeof(buffer); // grandezza di buffer							
+	if(pf!=0) // controllo programma aperto correttamente				
+	{
+		f=fseek(pf,0,2); //mette il puntatore alla fine del file e in f viene salvato il numero di bit				
+		f=ftell(pf);							
+		record=f/s;	 //divido f per s per trovare il risultato di quanti record ci sono						
+		return record;	// restituisce il numero di record presenti nelk file
+		fclose(pf); // chiusura programma
+	}
+	else //se è falso  visualizza errore		
+	{
+		printf("\nIL FILE NON PUO' ESSERE APERTO!"); // file con errore in apertura o inesistente
+		return -1; // restuituisce -1
+	}
+}  

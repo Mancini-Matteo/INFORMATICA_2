@@ -103,6 +103,16 @@ void menu(void) // funzione di stampa menù
 	printf("\n6: NumeroRecord\n");
 }
 
+/** ****************************************************************************************
+* @brief <inserisciRecord: inserisce in coda n record con i dati richiesti all’utente.
+* Se il file non esiste va creato e quindi effettuare l’inserimento.>
+*
+* @param  <char nomeFile,int numRecord>
+* @retval <nessun parametro restituito>
+*
+* @author <Matteo Mancini>
+* @version 1.0 <5/12/22> <Scrittura funzione>
+*/
 void inserisciRecord(char nomeFile[],int numRecord) // funzione di creazione e inserimento dati nei record
 {
 	int i=0,cont,f; // dichiarazione interi 
@@ -114,14 +124,17 @@ void inserisciRecord(char nomeFile[],int numRecord) // funzione di creazione e i
 	{
 		printf("\nInserisci il numero di matricola: ");
 		scanf("%d",&buffer.matricola); // inserimento campo matricola nel record buffer di tipo studente
+		
 		printf("\nInserisci il cognome dello studente: ");
 		scanf("%s",buffer.cognome);	// inserimento campo cognome nel record buffer di tipo studente
+		
 		printf("\nInserisci il giorno di nascita dello studente: ");
 		scanf("%d",&buffer.nascita.giorno); // inserimento campo giorno nel record buffer di tipo studente
 		printf("\nInserisci il mese di nascita dello studente: ");
 		scanf("%s",buffer.nascita.mese); // inserimento campo mese nel record buffer di tipo studente
 		printf("\nInserisci l'anno di nascita dello studente: ");
 		scanf("%d",&buffer.nascita.anno); // inserimento campo anno nel record buffer di tipo studente
+		
 		printf("\nInserisci 5 voti dello studente: ");
 		for(i=0;i<V;i++) // ciclo che scorre array di V(5) voti
 		{
@@ -133,6 +146,16 @@ void inserisciRecord(char nomeFile[],int numRecord) // funzione di creazione e i
 	fclose(pf); //salva le modifiche e chiude il file
 }
 
+/** ****************************************************************************************
+* @brief <stampaFile: Stampa su monitor (una riga per record) tutte le informazioni
+* contenute nel file;>
+*
+* @param  <char nomeFile>
+* @retval <dati contenuti nel file>
+*
+* @author <Matteo Mancini>
+* @version 1.0 <5/12/22> <Scrittura funzione>
+*/
 void stampaFile(char nomeFile[]) // funzione che stampa tutti i record
 {
 	int i,n; // contatore
@@ -152,13 +175,16 @@ void stampaFile(char nomeFile[]) // funzione che stampa tutti i record
 			if(n>0)
 			{
 				printf("Numero di matricola: %d",buffer.matricola);
+				
 				printf("\nCognome dello studente: %s",buffer.cognome);
+				
 				for(i=0;i<V;i++) // ciclo che scorre array di V(5) voti
 				{
 					a+=buffer.voti[i]; //somma tutti i voti 
 				}
 				media=a/V; // calcolo media
 				printf("\nMedia dello studente: %.1f",media);
+				
 				printf("\nData di nascita dello studente: %d %s %d\n",buffer.nascita.giorno,buffer.nascita.mese,buffer.nascita.anno);	
 				printf("\n");
 			}
@@ -168,6 +194,17 @@ void stampaFile(char nomeFile[]) // funzione che stampa tutti i record
 		printf("\nIL FILE NON PUO' ESSERE APERTO!"); // file con errore in apertura o inesistente
 }
 
+/** ****************************************************************************************
+* @brief <ricercaRecord: per ogni record che ha il contenuto del campo cognome uguale
+* al parametro, stampa cognome, età e media dei voti. La funzione restituisce la posizione
+* del primo record trovato.>
+*
+* @param  <char nomeFile, char cognome>
+* @retval <dati dello studente ricercato tramite cognome>
+*
+* @author <Matteo Mancini>
+* @version 1.0 <15/12/22> <Scrittura funzione>
+*/
 int ricercaRecord(char nomeFile[], char cognome[])  // funzione di ricerca record tramite cognome
 {
 	int i,eta,n,p; // dichiaraizone variabili int
@@ -184,7 +221,9 @@ int ricercaRecord(char nomeFile[], char cognome[])  // funzione di ricerca recor
 		if(strcmp(buffer.cognome,cognome)==0) //controlla se è lo stesso cognome
 		{
 			printf("\nNumero di matricola: %d",buffer.matricola);
+			
 			printf("\nCognome dello studente: %s",buffer.cognome);
+			
 			for(i=0;i<V;i++)
 			{
 				a+=buffer.voti[i]; //somma tutti i voti
@@ -200,6 +239,16 @@ int ricercaRecord(char nomeFile[], char cognome[])  // funzione di ricerca recor
 	return p;
 }
 
+/** ****************************************************************************************
+* @brief <stampaRecord: stampa le informazioni presenti nel record specificato
+* dal parametro posizione.>
+*
+* @param  <char nomeFile, int posizione>
+* @retval <Restituisce 0 se il record è presente -1 altrimenti.>
+*
+* @author <Matteo Mancini>
+* @version 1.0 <5/12/22> <Scrittura funzione>
+*/
 int stampaRecord(char nomeFile[],int posizione) //funzione che stampa tutti il record richiesto da tastiera
 {
 	int i,media,a,n,f; // dichiaraizone variabili int
@@ -214,13 +263,16 @@ int stampaRecord(char nomeFile[],int posizione) //funzione che stampa tutti il r
 		a=0; // porto a al volore 0 per calcolare una nuova media
 			
 		printf("\nNumero di matricola: %d",buffer.matricola);
+		
 		printf("\nCognome dello studente: %s",buffer.cognome );
+		
 		for(i=0;i<V;i++)
 		{
 			a+=buffer.voti[i]; //somma dei voti
 		}
 		media=a/V; //calcolo media
 		printf("\nMedia dello studente: %d",media);
+		
 		printf("\nData di nascita dello studente:%d %s %d\n", buffer.nascita.giorno, buffer.nascita.mese, buffer.nascita.anno);
 		f=fseek(pf,posizione*sizeof(buffer),SEEK_SET); // posiziona 
 		fclose(pf);
@@ -234,13 +286,22 @@ int stampaRecord(char nomeFile[],int posizione) //funzione che stampa tutti il r
 	}
 }
 
-
+/** ****************************************************************************************
+* @brief <correggiRecord: visualizza le informazioni del record richiamando la funzione
+* stampaRecord e corregge l’intero record, con i nuovi dati richiesti all’utente.
+*
+* @param  <char nomeFile, int posizione>
+* @retval <nessun parametro restituito>
+*
+* @author <Matteo Mancini>
+* @version 1.0 <15/12/22> <Scrittura funzione>
+*/
 int correggiRecord(char nomeFile[], int posizione) // funzione di correzione di un singolo record
 {
     int f1,f,i; // dichiarazione variabili int                 
 	FILE *pf; //dichiarazione puntatore del file
 	studente buffer; //dichiarazione di un record buffer di tipo studente
-	pf=fopen(nomeFile,"wb+"); // apertura file in write binary
+	pf=fopen(nomeFile,"rb+"); // apertura file in write binary
 	
     if(pf!=0) // controllo se il file è stato aperto correttamente       
     {   
@@ -253,13 +314,16 @@ int correggiRecord(char nomeFile[], int posizione) // funzione di correzione di 
             printf("\nINSERISCI LE CORREZZIONI: ");
             printf("\nInserisci il numero di matricola: ");
 			scanf("%d",&buffer.matricola);
+			
 			printf("\nInserisci il cognome dello studente: ");
 			scanf("%s",buffer.cognome); 
+			
 			printf("\nInserisci 5 voti dello studente");
 			for(i=0;i<V;i++) // ciclo inserimento voti
 			{
 				scanf("%d",&buffer.voti[i]); ; //inserimento voti
 			}
+			
 			printf("\nInserisci il giorno di nascita dello studente: ");
 			scanf("%d",&buffer.nascita.giorno); 
 			printf("\nInserisci il mese di nascita dello studente: ");
@@ -276,6 +340,15 @@ int correggiRecord(char nomeFile[], int posizione) // funzione di correzione di 
 		printf("\nIL FILE NON PUO' ESSERE APERTO!"); // file con errore in apertura o inesistente
 }
 
+/** ****************************************************************************************
+* @brief <numeroRecord: restituisce il numero di record presenti nel file.>
+*
+* @param  <char nomeFile>
+* @retval <restituisce il numero di record presenti nel file.>
+*
+* @author <Matteo Mancini>
+* @version 1.0 <15/12/22> <Scrittura funzione>
+*/
 int numeroRecord(char nomeFile[]) // funzione che stampa il numero di record presenti nel file 
 {
 	studente buffer; //dichiarazione di un record buffer di tipo studente										

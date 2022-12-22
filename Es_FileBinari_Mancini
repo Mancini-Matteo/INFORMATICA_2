@@ -207,11 +207,11 @@ void stampaFile(char nomeFile[]) // funzione che stampa tutti i record
 */
 int ricercaRecord(char nomeFile[], char cognome[])  // funzione di ricerca record tramite cognome
 {
-	int i,eta,n,p; // dichiaraizone variabili int
+	int i,eta,n,p,anno=2022; // dichiaraizone variabili int
 	float media,a; // dichiaraizone variabili float
 	FILE* pf; //dichiarazione puntatore del file
 	studente buffer; //dichiarazione di un record buffer di tipo studente
-	pf=fopen(nomeFile,"rb"); //apre x è file1
+	pf=fopen(nomeFile,"rb"); //apre nome file in read binary
 	
 	while(!feof(pf)) //il ciclo continua fino quando finisce il file
 	{
@@ -223,6 +223,9 @@ int ricercaRecord(char nomeFile[], char cognome[])  // funzione di ricerca recor
 			printf("\nNumero di matricola: %d",buffer.matricola);
 			
 			printf("\nCognome dello studente: %s",buffer.cognome);
+			
+			eta=anno-buffer.nascita.anno;
+			printf("\nEta studente: %d anni",eta);
 			
 			for(i=0;i<V;i++)
 			{

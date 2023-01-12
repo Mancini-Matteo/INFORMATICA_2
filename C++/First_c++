@@ -1,0 +1,70 @@
+/*******************************************************************
+* \mainpage First_c++                                            *
+*                                                                  *
+* @brief Primo programma utilizzando la programmazione ad oggetti  *
+*         utilizzo metodo set,get e metodo costruttore.            *
+*                                                                  *
+* @author Matteo Mancini                                           *
+* @date 12/01/23                                                   *
+* @version 1.0 <12/01/23> Creazione del programma                  *
+*******************************************************************/
+
+#include <cstdlib>
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+class Frazione //Creazione classe frazione
+{
+	private: //Dichiarazione attributi privati 
+		int numeratore; 
+		int denominatore;
+		
+	public: //Dichiarazione metodi pubblici
+	
+		Frazione()
+		{
+			
+		};
+	
+		void setNumeratore(int n) //Avvalora il numeratore con il valore n
+		{
+			numeratore=n;
+		}
+		
+		void setDenominatore(int n) //Avvalora il denominatore con il valore n
+		{
+			denominatore=n;
+		}
+		
+		int getNumeratore() //Restituisce valore numeratore
+		{
+			return numeratore;
+		}
+		
+		int getDenominatore() //Restituisce valore denominatore
+		{
+			return denominatore;
+		}
+		
+		void stampa() //Stampa valore numeratore e denominatore
+		{
+			cout << "Numeratore: " << numeratore;
+			cout << endl;
+			cout << "Denominatore: " << denominatore;
+			cout << endl;
+			cout << "Frazione: " << numeratore << "/" << denominatore;
+		}
+};
+
+int main()
+{
+	Frazione f1; //Chiamata nel main del costruttore Frazione chiamato f1
+	
+	f1.setNumeratore(2); //Avvaloro il numeratore con il parametro 2
+	f1.setDenominatore(4); //Avvaloro il denominatore con il parametro 4
+	f1.getNumeratore();
+	f1.getDenominatore();
+	f1.stampa();
+}

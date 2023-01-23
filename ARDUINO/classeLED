@@ -1,0 +1,64 @@
+class LED// Classe LED
+{
+  private://attributi privati
+  	int pin; // Pin del LED
+  	int stato; //statoled
+  
+  public://attributi pubblici
+  
+    LED(int p)  // Costruttore LED con parametro p
+    {
+		pin = p;
+		pinMode(pin, OUTPUT);//Imposto modalità led in output
+    }
+   
+    void accendi() // Metodo per accendere il LED
+    {
+    	digitalWrite(pin, HIGH);// imposto stato led high
+    	stato=1;
+    }
+    
+    void spegni()// Metodo per spegnere il LED
+    {
+    	digitalWrite(pin, LOW);// imposto stato led low
+    	stato=0;
+    }
+  
+  	void inverti()	// Metodo che inverte lo stato del led
+    {
+    	if(stato==0)//Verifica se il led è spento
+        	accendi();//chiamata funzione accendi
+        else
+        	spegni();//chiamata funzione spegni
+    }
+  
+    void lampeggio(int numLampeggi)
+    {
+    	int i;
+     	for(i=0;i<numLampeggi;i++)
+        {
+        	spegni();
+        	delay(500);
+        	inverti();
+        }
+    }
+      
+     void ledTest(int numTest)
+     {
+     	lampeggio(numTest);
+     }
+    
+};
+
+
+LED led(11);// Crea un oggetto LED sulla porta 11
+
+void setup() // Imposta stato di partenza del led
+{ 
+  led.accendi();//Chiamata metodo accendi
+}
+
+void loop()
+{
+	led.ledTest(6);//numero test da eseguire
+}

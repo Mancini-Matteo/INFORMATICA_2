@@ -1,0 +1,122 @@
+#define LED_PIN 13
+#define SW_PIN 2
+
+class LED
+{
+    private:
+    int pin;// Pin del LED
+  	int stato;
+
+  public:
+    // Costruttore: imposta la modalità del pin del LED come output
+    LED(int p) 
+    {
+      pin = p;
+      pinMode(pin, OUTPUT);
+    }
+
+    // Metodo per accendere il LED
+    void accendi() 
+    {
+      digitalWrite(pin, HIGH);
+      stato=1;
+    }
+
+    // Metodo per spegnere il LED
+    void spegni() 
+    {
+      digitalWrite(pin, LOW);
+      stato=0;
+    }
+  
+  	void inverti()
+    {
+      if(stato==0)
+        accendi();
+      else
+        spegni();
+    }
+  
+  void lampeggio(int n)
+  {
+    int i=0;
+    for(i=0;i<2*n;i++)
+    {
+      inverti();
+      delay(500);
+    }      
+  }
+  
+  void Test(int n)
+  {
+    lampeggio(n);
+  }
+ 
+};
+
+class PULSANTE
+{
+	private:
+  
+    int pin;
+    
+  	public:
+  
+    PULSANTE(int p)
+    {
+      pin=p;
+      pinMode(pin,INPUT_PULLUP);
+    }
+      
+ 	int press()
+    {
+      if(digitalRead(pin)==LOW)
+        return 1;
+      else 
+        return 0;
+    }
+  
+    int click()
+    {
+      if(press())
+      {
+        while(press())
+        {
+          ;
+        }
+        return 1;
+      }
+      else
+      {
+        return 0;
+      }
+    }
+};
+
+LED ledRed(12);
+LED ledBlu(13);
+PULSANTE botton(2);
+
+void setup() 
+{
+  int l=5; //numero di lampeeggi
+  ledRed.accendi();
+  ledBlu.accendi();
+  //Il led lampeggia
+  ledRed.lampeggio(l);
+  ledBlu.lampeggio(l);
+}
+
+void loop() 
+{
+	if(botton.click())
+    {
+      ledBlu.accendi();
+      ledRed.spegni();
+    }
+  	else
+    {
+      ledBlu.spegni();
+      ledRed.accendi();
+    }
+}
